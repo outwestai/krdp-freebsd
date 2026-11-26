@@ -87,6 +87,35 @@ pgrep -l 'pipewire|wireplumber|krdpserver'
 You should see all three processes. Reconnect with your RDP client and the
 desktop should appear.
 
+## Building plasma6-krdp from the patched port
+
+The `net/plasma6-krdp` port in the ports tree declares its runtime dependency
+on the portal by the wrong package name:
+
+```
+RUN_DEPENDS=	xdg-desktop-portal-kde>0:deskutils/plasma6-xdg-desktop-portal-kde
+```
+
+The package is actually called `plasma6-xdg-desktop-portal-kde`, so the
+dependency check never matches the installed package. `port/plasma6-krdp/`
+contains a copy of the port with that line fixed (see
+[`port/run-depends-fix.diff`](port/run-depends-fix.diff)), plus a generated
+`pkg-plist`.
+
+To build and install it as a normal user (requires `/usr/ports` for `Mk/` and
+the distfiles):
+
+```sh
+./port/build.sh                 # builds port/pkgs/All/plasma6-krdp-6.8.3.pkg
+sudo pkg add port/pkgs/All/plasma6-krdp-6.8.3.pkg
+```
+
+Alternatively, apply the diff to your own ports tree:
+
+```sh
+cd /usr/ports && patch -p0 < /path/to/krdp-freebsd/port/run-depends-fix.diff
+```
+
 ## Still black?
 
 See [TROUBLESHOOTING.md](TROUBLESHOOTING.md).

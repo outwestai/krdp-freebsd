@@ -1,0 +1,11 @@
+--- net/plasma6-krdp/Makefile.orig
++++ net/plasma6-krdp/Makefile
+@@ -16,7 +16,7 @@
+ 		libqt6keychain.so:security/qtkeychain \
+ 		libwinpr3.so:net/freerdp3 \
+ 		libxkbcommon.so:x11/libxkbcommon
+-RUN_DEPENDS=	xdg-desktop-portal-kde>0:deskutils/plasma6-xdg-desktop-portal-kde
++RUN_DEPENDS=	plasma6-xdg-desktop-portal-kde>0:deskutils/plasma6-xdg-desktop-portal-kde
+ 
+ USES=		cmake compiler:c++20-lang gettext kde:6 pkgconfig qt:6 tar:xz
+ USE_KDE=	config coreaddons crash dbusaddons guiaddons i18n kcmutils \

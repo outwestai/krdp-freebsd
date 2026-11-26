@@ -1,0 +1,7 @@
+KRdp is a library and server implementing the Remote Desktop Protocol
+(RDP) for KDE Plasma. It shares the running Plasma Wayland session with
+RDP clients, using KWin's screencast protocol (or the xdg-desktop-portal
+RemoteDesktop portal) for video and libei for input.
+
+It includes the krdpserver daemon and a System Settings module for
+configuring users, passwords and video quality.
