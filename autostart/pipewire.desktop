@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=pipewire
+Exec=/usr/local/bin/pipewire
+X-KDE-autostart-phase=1
