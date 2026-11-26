@@ -1,3 +1,4 @@
 port/work/
 port/pkgs/
 *.core
+port/distfiles/

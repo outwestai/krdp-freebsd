@@ -47,9 +47,20 @@ screencast node to KRdp's consumer stream.
 
 ### 1. Install the packages
 
+`plasma6-krdp` is not in the FreeBSD package repository, so install its
+dependencies from packages and KRdp itself from this repo's release (or
+[build it yourself](#building-plasma6-krdp-from-the-patched-port)):
+
 ```sh
-sudo pkg install pipewire wireplumber plasma6-krdp
+sudo pkg install pipewire wireplumber freerdp3 libei qtkeychain-qt6 \
+  plasma6-kpipewire plasma6-xdg-desktop-portal-kde kirigami-addons-qt6 \
+  kf6-kcmutils kf6-kstatusnotifieritem qt6-wayland
+fetch https://github.com/outwestai/krdp-freebsd/releases/download/plasma6-krdp-6.8.3/plasma6-krdp-6.8.3.pkg
+sudo pkg add plasma6-krdp-6.8.3.pkg
 ```
+
+The release package is built for **FreeBSD 15 amd64** against the package
+versions listed under [Tested on](#tested-on).
 
 ### 2. Start PipeWire and WirePlumber with the Plasma session
 
@@ -102,10 +113,14 @@ contains a copy of the port with that line fixed (see
 [`port/run-depends-fix.diff`](port/run-depends-fix.diff)), plus a generated
 `pkg-plist`.
 
-To build and install it as a normal user (requires `/usr/ports` for `Mk/` and
-the distfiles):
+To build and install it as a normal user you need a ports tree in `/usr/ports`
+(only the framework in `Mk/` is used) and the dependencies installed from
+packages (the `pkg install` line in step 1, minus the release download). The
+script downloads the source into `port/distfiles/` and tells you if any
+dependency is missing:
 
 ```sh
+sudo git clone --depth 1 https://git.FreeBSD.org/ports.git /usr/ports   # if you have no ports tree
 ./port/build.sh                 # builds port/pkgs/All/plasma6-krdp-6.8.3.pkg
 sudo pkg add port/pkgs/All/plasma6-krdp-6.8.3.pkg
 ```
